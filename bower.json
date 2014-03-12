@@ -1,0 +1,28 @@
+{
+  "name": "j-window-crop",
+  "version": "1.0.0",
+  "homepage": "https://github.com/timelinelabs/jWindowCrop",
+  "authors": [
+    "Brad Rieke <pair+brad@timelinelabs.com>"
+  ],
+  "description": "A fork of the jWindowCrop by tybro0103",
+  "main": "jquery.jWindowCrop.js",
+  "keywords": [
+    "jWindowCrop",
+    "image",
+    "cropping",
+    "jquery"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "links.txt",
+    "README*",
+    "demo.html"
+  ]
+}
