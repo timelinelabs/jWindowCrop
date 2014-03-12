@@ -1,6 +1,11 @@
 Description
 ===========
+
 Easy to use jQuery plugin for zoom & pan image cropping.
+
+## Differences from original fork
+
+We moved the zoom controls below the image instead of letting them float on top of the image
 
 Demo
 ====
