@@ -1,5 +1,5 @@
 /*
- * jWindowCrop v1.0.0
+ * jWindowCrop v1.0.1
  *
  * Copyright (c) 2012 Tyler Brown
  * Licensed under the MIT license.
