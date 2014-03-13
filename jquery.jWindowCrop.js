@@ -7,7 +7,8 @@
  */
 
 (function($){
-	function fillContainer(val, targetLength, containerLength) { // ensure that no gaps are between target's edges and container's edges
+  // ensure that no gaps are between target's edges and container's edges
+	function fillContainer(val, targetLength, containerLength) { 
 		if(val + targetLength < containerLength) val = containerLength-targetLength;
 		if(val > 0) val = 0;
 		return val;
@@ -28,12 +29,18 @@
 			base.options = $.extend({},$.jWindowCrop.defaultOptions, options);
 			if(base.options.zoomSteps < 2) base.options.zoomSteps = 2;
 
-			base.$image.addClass('jwc_image').wrap('<div class="jwc_wrap" />').wrap('<div class="jwc_frame" />'); // wrap image in frame
+      // wrap image in frame
+			base.$image.addClass('jwc_image').wrap('<div class="jwc_wrap" />').wrap('<div class="jwc_frame" />');
 			base.$frame = base.$image.parent();
 			base.$wrap = base.$frame.parent();
 			base.$frame.append('<div class="jwc_loader">' + base.options.loadingText + '</div>');
-			base.$frame.after('<div class="jwc_controls" style="width: ' + base.options.targetWidth + 'px; display:'+(base.options.showControlsOnStart ? 'block' : 'none')+';"><span>click to drag</span><a href="#" class="jwc_zoom_in"></a><a href="#" class="jwc_zoom_out"></a></div>');
-			base.$frame.css({'overflow': 'hidden', 'position': 'relative', 'width': base.options.targetWidth, 'height': base.options.targetHeight});
+			base.$frame.after('<div class="jwc_controls" style="width: ' + base.options.targetWidth + 'px; ' +
+          'display:' + (base.options.showControlsOnStart ? 'block' : 'none') + ';">' +
+          '<span>click to drag</span><a href="#" class="jwc_zoom_in ' + base.options.zoomButtonClass + '"></a>' +
+          '<a href="#" class="jwc_zoom_out ' + base.options.zoomButtonClass + '"></a></div>');
+			base.$frame.css({
+        'overflow': 'hidden', 'position': 'relative',
+        'width': base.options.targetWidth, 'height': base.options.targetHeight});
 			base.$image.css({'position': 'absolute', 'top': '0px', 'left': '0px'});
 			initializeDimensions();
 
@@ -188,6 +195,7 @@
 		zoomSteps: 10,
 		loadingText: 'Loading...',
 		smartControls: true,
+    zoomButtonClass: '',
 		showControlsOnStart: true,
 		onChange: function() {}
 	};
