@@ -68,6 +68,7 @@
 			$('.jwc_controls').remove(); // remove the added controls
 			base.$image.removeAttr( 'style' ); // undo the style
 			base.$image.unwrap(); // undo the wrap
+			base.$image.unwrap(); // undo our extra wrap
 		};
 		
 		base.setZoom = function(percent) {
