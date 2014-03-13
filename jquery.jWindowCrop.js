@@ -94,12 +94,32 @@
 				var heightRatio = base.options.targetHeight / base.originalHeight;
 				//base.minPercent = (widthRatio >= heightRatio) ? widthRatio : heightRatio;
 				if(widthRatio >= heightRatio) {
-					base.minPercent = (base.originalWidth < base.options.targetWidth) ? (base.options.targetWidth / base.originalWidth) : widthRatio;
+					base.minPercent = (base.originalWidth < base.options.targetWidth) ?
+							(base.options.targetWidth / base.originalWidth) :
+							widthRatio;
 				} else {
-					base.minPercent = (base.originalHeight < base.options.targetHeight) ? (base.options.targetHeight / base.originalHeight) : heightRatio;
+					base.minPercent = (base.originalHeight < base.options.targetHeight) ?
+							(base.options.targetHeight / base.originalHeight) :
+							heightRatio;
 				}
-				base.focalPoint = {'x': Math.round(base.originalWidth/2), 'y': Math.round(base.originalHeight/2)};
-				base.setZoom(base.minPercent);
+
+				base.workingPercent = base.minPercent;
+				if(base.options.initialCropValues != null) {
+					base.workingPercent = (base.options.targetHeight / base.options.initialCropValues.cropH +
+							base.options.targetWidth / base.options.initialCropValues.cropW) / 2;
+					base.workingPercent = Math.max(base.minPercent, base.workingPercent);
+					base.focalPoint = {
+						'x': Math.round(base.options.initialCropValues.cropX + base.options.initialCropValues.cropW/2),
+						'y': Math.round(base.options.initialCropValues.cropY + base.options.initialCropValues.cropH/2)
+					};
+				} else {
+					base.focalPoint = {
+						'x': Math.round(base.originalWidth/2),
+						'y': Math.round(base.originalHeight/2)
+					};
+				}
+
+				base.setZoom(base.workingPercent);
 				base.$image.fadeIn('fast'); //display image now that it has loaded
 			}
 		}
@@ -109,15 +129,19 @@
 			base.focalPoint = {'x': Math.round(x), 'y': Math.round(y)};
 		}
 		function focusOnCenter() {
-			var left = fillContainer((Math.round((base.focalPoint.x*base.workingPercent) - base.options.targetWidth/2)*-1), base.$image.width(), base.options.targetWidth);
-			var top = fillContainer((Math.round((base.focalPoint.y*base.workingPercent) - base.options.targetHeight/2)*-1), base.$image.height(), base.options.targetHeight);
+			var left = fillContainer(
+					(Math.round((base.focalPoint.x*base.workingPercent) - base.options.targetWidth/2)*-1),
+					base.$image.width(), base.options.targetWidth);
+			var top = fillContainer(
+					(Math.round((base.focalPoint.y*base.workingPercent) - base.options.targetHeight/2)*-1),
+					base.$image.height(), base.options.targetHeight);
 			base.$image.css({'left': (left.toString()+'px'), 'top': (top.toString()+'px')})
 			storeFocalPoint();
 		}
 		function updateResult() {
 			base.result = {
-				cropX: Math.floor(parseInt(base.$image.css('left'))/base.workingPercent*-1),
-				cropY: Math.floor(parseInt(base.$image.css('top'))/base.workingPercent*-1),
+				cropX: Math.round(parseInt(base.$image.css('left'))/base.workingPercent*-1),
+				cropY: Math.round(parseInt(base.$image.css('top'))/base.workingPercent*-1),
 				cropW: Math.round(base.options.targetWidth/base.workingPercent),
 				cropH: Math.round(base.options.targetHeight/base.workingPercent),
 				mustStretch: (base.minPercent > 1)
@@ -160,6 +184,7 @@
 	$.jWindowCrop.defaultOptions = {
 		targetWidth: 320,
 		targetHeight: 180,
+		initialCropValues: null,
 		zoomSteps: 10,
 		loadingText: 'Loading...',
 		smartControls: true,

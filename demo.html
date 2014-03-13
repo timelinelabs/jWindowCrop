@@ -56,6 +56,9 @@
 				targetWidth: 400,
 				targetHeight: 300,
 				loadingText: 'hello world',
+                initialCropValues: {
+                    cropX: 145, cropY: 829, cropW: 436, cropH: 327
+                },
 				onChange: function(result) {
 					$('#crop_x').text(result.cropX);
 					$('#crop_y').text(result.cropY);
