@@ -8,7 +8,7 @@
 
 (function($){
   // ensure that no gaps are between target's edges and container's edges
-	function fillContainer(val, targetLength, containerLength) { 
+	function fillContainer(val, targetLength, containerLength) {
 		if(val + targetLength < containerLength) val = containerLength-targetLength;
 		if(val > 0) val = 0;
 		return val;
@@ -34,10 +34,13 @@
 			base.$frame = base.$image.parent();
 			base.$wrap = base.$frame.parent();
 			base.$frame.append('<div class="jwc_loader">' + base.options.loadingText + '</div>');
-			base.$frame.after('<div class="jwc_controls" style="width: ' + base.options.targetWidth + 'px; ' +
+			base.$frame.after(
+          '<div class="jwc_controls" style="width: ' + base.options.targetWidth + 'px; ' +
           'display:' + (base.options.showControlsOnStart ? 'block' : 'none') + ';">' +
-          '<span>click to drag</span><a href="#" class="jwc_zoom_in ' + base.options.zoomButtonClass + '"></a>' +
-          '<a href="#" class="jwc_zoom_out ' + base.options.zoomButtonClass + '"></a></div>');
+          '<span>click to drag</span><a href="#" class="jwc_zoom_in ' + base.options.zoomButtonClass + ' ' +
+          base.options.zoomInButtonClass + '"></a>' +
+          '<a href="#" class="jwc_zoom_out ' + base.options.zoomButtonClass + ' ' +
+          base.options.zoomOutButtonClass + '"></a></div>');
 			base.$frame.css({
         'overflow': 'hidden', 'position': 'relative',
         'width': base.options.targetWidth, 'height': base.options.targetHeight});
@@ -196,6 +199,8 @@
 		loadingText: 'Loading...',
 		smartControls: true,
     zoomButtonClass: '',
+    zoomInButtonClass: '',
+    zoomOutButtonClass: '',
 		showControlsOnStart: true,
 		onChange: function() {}
 	};
