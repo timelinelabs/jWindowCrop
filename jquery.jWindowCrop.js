@@ -155,6 +155,7 @@
 				cropY: Math.round(parseInt(base.$image.css('top'))/base.workingPercent*-1),
 				cropW: Math.round(base.options.targetWidth/base.workingPercent),
 				cropH: Math.round(base.options.targetHeight/base.workingPercent),
+                cropS: base.workingPercent,
 				mustStretch: (base.minPercent > 1)
 			};
 			base.options.onChange.call(base.image, base.result);
