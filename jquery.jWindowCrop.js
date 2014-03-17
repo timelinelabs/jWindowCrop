@@ -96,7 +96,7 @@
 		};
         base.touchCropCoordinates = function() {
             updateResult();
-        }
+        };
 
 		function initializeDimensions() {
 			if(base.originalWidth == 0) {
