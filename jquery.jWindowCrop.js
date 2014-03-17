@@ -94,6 +94,9 @@
 			base.setZoom(base.workingPercent-zoomIncrement);
 			return false;
 		};
+        base.touchCropCoordinates = function() {
+            updateResult();
+        }
 
 		function initializeDimensions() {
 			if(base.originalWidth == 0) {
